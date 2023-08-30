@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Manage Students</title>
+  <!-- Add Bootstrap CSS link -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    /* Body background */
+    body {
+      background: linear-gradient(135deg, #2A3F54, #0D1F2D);
+      color: #fff;
+    }
+
+    /* Active link style */
+    .nav-link.active {
+      background-color: #071423;
+    }
+
+    /* Top navigation bar */
+    .navbar {
+      background-color: #0a1924;
+    }
+
+    .navbar-brand,
+    .navbar-brand:hover {
+      color: #fff;
+    }
+
+    /* Sidebar styles */
+    #sidebar {
+      background-color: #0f2434;
+      color: #ffffff;
+    }
+  </style>
+</head>
+
+<body>
+  <nav class="navbar">
+    <div class="container">
+      <a class="navbar-brand" href="#">
+        <h1 class="text-light">EduLearn</h1>
+        <a class="text-light" href="#">
+          <h4>Welcome! Admin.</h4>
+        </a>
+      </a>
+    </div>
+  </nav>
+  <div class="container-fluid">
+    <div class="row">
+      <!-- Sidebar -->
+      <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block vh-100">
+        <div class="position-sticky mt-3">
+          <ul class="nav flex-column">
+            <li class="nav-item">
+              <a class="nav-link text-light border text-center" href="/admin/dashboard">
+                <h5>Dashboard</h5>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-light border-bottom" href="/admin/add-course">Add Course</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-light border-bottom" href="/admin/add-student">Add Student</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-light border-bottom" href="/admin/upload-materials">Upload
+                Materials</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-light border-bottom" href="/admin/manage-courses">Manage Courses</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active text-light border-bottom" href="/admin/manage-students">Manage
+                Students</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-light border-bottom" href="/admin/manage-materials">Manage
+                Materials</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-light border-bottom" href="/admin/view-submissions">View Submissions</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-light border-bottom" href="/admin/view-results">Results</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-light border-bottom" href="/admin/enrollment-requests">Enrollment Requests</a>
+            </li>
+            <li class="nav-item bg-danger mt-5">
+              <a class="nav-link text-light border-bottom" href="/admin/logout">Logout</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+      <div class="col-md-9  m-2">
+        <section class="student-list border p-4 rounded">
+          <h2 class="border rounded p-2 mb-3">Student List</h2>
+          <div class="table-responsive">
+            <table>
+              <thead>
+                <tr class="border-bottom">
+                  <th>First Name</th>
+                  <th>Last Name</th>
+                  <th>Email</th>
+                  <th>Assigned Courses</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% students.forEach(student=> { %>
+                <tr class="border-bottom">
+                  <td>
+                    <%= student.firstName %>
+                  </td>
+                  <td>
+                    <%= student.lastName %>
+                  </td>
+                  <td>
+                    <%= student.email %>
+                  </td>
+                  <td>
+                    <% student.enrolledCourses.forEach(course=> { %>
+                    <%= course.title %><br>
+                    <% }); %>
+                  </td>
+                  <td>
+                    <a href="/admin/edit-student/<%= student._id %>" class="btn btn-warning m-2">Edit</a>
+                    <a href="/admin/assign-course/<%= student._id %>" class="btn btn-success m-2">Assign Course</a>
+                    <form method="POST" action="/admin/delete-student/<%= student._id %>" onsubmit="return confirm('Are you sure you want to delete this student?');">
+                      <button type="submit" class="btn btn-danger m-2">Delete</button>
+                    </form>
+                  </td>
+                </tr>
+                <% }); %>
+              </tbody>
+            </table>
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
+  <!-- Add Bootstrap JS and jQuery scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

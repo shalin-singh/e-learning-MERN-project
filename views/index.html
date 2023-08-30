@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Edit Question</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    /* Body background */
+    body {
+      background: linear-gradient(135deg, #2A3F54, #0D1F2D);
+      color: #fff;
+    }
+  </style>
+</head>
+
+<body>
+  <nav class="navbar navbar-dark bg-dark">
+    <div class="container">
+      <a class="navbar-brand" href="#">
+        <h1 class="text-light">EduLearn</h1>
+        <a class="text-light" href="#">
+          <h4>Welcome! Admin.</h4>
+        </a>
+      </a>
+    </div>
+  </nav>
+  <div class="container-fluid">
+    <div class="row">
+      <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block border-end text-center vh-100">
+        <div class="position-sticky mt-3">
+          <ul class="nav flex-column">
+            <li class="nav-item">
+              <a class="nav-link active text-light border-bottom" href="/admin/dashboard">
+                <h5>Dashboard</h5>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-light border-bottom" href="/admin/add-course">Add Course</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-light border-bottom" href="/admin/add-student">Add Student</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-light border-bottom" href="/admin/add-questions">Add Question</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-light border-bottom" href="/admin/upload-materials">Upload
+                Materials</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-light border-bottom" href="/admin/manage-courses">Manage Courses</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-light border-bottom" href="/admin/manage-students">Manage
+                Students</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-light border-bottom" href="/admin/manage-questions">Manage
+                Questions</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-light border-bottom" href="/admin/manage-materials">Manage
+                Materials</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-light border-bottom" href="/admin/enrollment-requests">Enrollment Requests</a>
+            </li>
+            <li class="nav-item">
+              <a class="btn btn-danger w-100 mt-5" href="/admin/logout">Logout</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+
+      <div class="col-md-9 col-lg-10">
+        <% if (messages.success) { %>
+        <div class="alert alert-success">
+          <%= messages.success %>
+        </div>
+        <% } else if (messages.error) { %>
+        <div class="alert alert-danger">
+          <%= messages.error %>
+        </div>
+        <% } %>
+        <form class="p-3" id="question-form" action="/admin/edit-question/<%= question._id %>" method="post">
+          <div class="question">
+            <h2>Edit Question</h2>
+            <label for="updatedQuestion">Question:</label>
+            <input type="text" id="updatedQuestion" class="form-control" name="updatedQuestion" value="<%= question.question %>" required>
+            <% for (const option of ['a', 'b', 'c', 'd']) { %>
+            <label for="option-<%= option %>">Option <%= option.toUpperCase() %>:</label>
+            <input type="text" id="option-<%= option %>" class="form-control" name="updatedOptions[<%= option %>]" value="<%= question.options[option] %>" required>
+            <% } %>
+            <label for="updatedAnswer">Correct Answer:</label>
+            <select id="updatedAnswer" class="form-select" name="updatedAnswer" required>
+
+              <option value="a" <%=question.answer==='a' ? 'selected' : '' %>>Option A</option>
+              <option value="b" <%=question.answer==='b' ? 'selected' : '' %>>Option B</option>
+              <option value="c" <%=question.answer==='c' ? 'selected' : '' %>>Option C</option>
+              <option value="d" <%=question.answer==='d' ? 'selected' : '' %>>Option D</option>
+
+            </select>
+          </div>
+          <button type="submit" class="btn btn-primary">Save Changes</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

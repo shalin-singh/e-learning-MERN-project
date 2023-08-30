@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Results</title>
+  <!-- Add Bootstrap CSS link -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    /* Body background */
+    body {
+      background: linear-gradient(135deg, #2A3F54, #0D1F2D);
+      color: #fff;
+      font-family: Arial, sans-serif;
+    }
+
+    /* Active link style */
+    .nav-link.active {
+      background-color: #071423;
+    }
+
+    /* Top navigation bar */
+    .navbar {
+      background-color: #0a1924;
+    }
+
+    .navbar-brand,
+    .navbar-brand:hover {
+      color: #fff;
+    }
+
+    /* Sidebar styles */
+    #sidebar {
+      background-color: #0f2434;
+      color: #ffffff;
+      min-height: 100vh;
+    }
+
+    /* Content styles */
+    .content {
+      padding: 20px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+      color: #fff;
+    }
+
+    th,
+    td {
+      border: 1px solid #fff;
+      padding: 8px;
+      text-align: left;
+    }
+
+    th {
+      background-color: #0a1924;
+    }
+
+    tr:nth-child(even) {
+      background-color: #071423;
+    }
+
+    tr:nth-child(odd) {
+      background-color: #0f2434;
+    }
+  </style>
+</head>
+
+<body>
+  <nav class="navbar">
+    <div class="container">
+      <a class="navbar-brand" href="#">
+        <h1 class="text-light">EduLearn</h1>
+        <a class="text-light" href="#">
+          <h4>Welcome! Admin.</h4>
+        </a>
+      </a>
+    </div>
+  </nav>
+  <div class="container-fluid">
+    <div class="row">
+      <!-- Sidebar -->
+      <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block vh-100">
+        <div class="position-sticky mt-3">
+          <ul class="nav flex-column">
+            <li class="nav-item">
+              <a class="nav-link text-light border text-center" href="/admin/dashboard">
+                <h5>Dashboard</h5>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-light border-bottom" href="/admin/add-course">Add Course</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-light border-bottom" href="/admin/add-student">Add Student</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-light border-bottom" href="/admin/upload-materials">Upload
+                Materials</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-light border-bottom" href="/admin/manage-courses">Manage Courses</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-light border-bottom" href="/admin/manage-students">Manage
+                Students</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-light border-bottom" href="/admin/manage-materials">Manage
+                Materials</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-light border-bottom" href="/admin/view-submissions">View Submissions</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active text-light border-bottom" href="/admin/view-results">Results</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-light border-bottom" href="/admin/enrollment-requests">Enrollment Requests</a>
+            </li>
+            <li class="nav-item bg-danger mt-4">
+              <a class="nav-link text-light border-bottom" href="/admin/logout">Logout</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+
+      <!-- Main content -->
+      <main class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+        <div class="content">
+          <h1 class="mb-4">Results</h1>
+          <table>
+            <tr>
+              <th>Student</th>
+              <th>Course</th>
+              <th>Material</th>
+              <th>Score</th>
+            </tr>
+            <% results.forEach(result => { %>
+            <tr>
+              <td><%= result.student.firstName %> <%= result.student.lastName %></td>
+              <td><%= result.course.title %></td>
+              <td><%= result.material.title %></td>
+              <td><%= result.score %></td>
+            </tr>
+            <% }); %>
+          </table>
+        </div>
+      </main>
+    </div>
+  </div>
+</body>
+
+</html>

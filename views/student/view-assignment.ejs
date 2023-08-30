@@ -1,0 +1,29 @@
+<html>
+
+<head>
+
+</head>
+
+<body>
+
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-10 mx-auto text-light border rounded m-4">
+        <h1>Assignment: <%= assignment.title %></h1>
+        <p><%= assignment.description %></p>
+        <% if (submission) { %>
+        <p>You have already submitted this assignment.</p>
+        <% } else { %>
+        <form action="/student/assignments/<%= assignment._id %>/submit" method="post" enctype="multipart/form-data">
+          <label for="file">Upload Your Solution:</label>
+          <input type="file" name="file" id="file" accept=".pdf,.doc,.docx" required>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+        <% } %>
+
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

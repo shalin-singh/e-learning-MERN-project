@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Lectures and Materials</title>
+</head>
+
+<body>
+  <h1>Lectures and Materials for <%= course.title %>
+  </h1>
+
+  <!-- List of Lectures -->
+  <h2>Lectures:</h2>
+  <ul>
+    <% for (const lecture of course.materials) { %>
+    <% if (lecture.materialType === "lecture") { %>
+    <li>
+      <a href="#" onclick="playLecture('<%= lecture.videoUrl %>')">
+        <%= lecture.title %>
+      </a>
+    </li>
+    <% } %>
+    <% } %>
+  </ul>
+
+  <!-- Video Player -->
+  <div id="videoPlayer">
+    <video id="lectureVideo" controls>
+      <source src="" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+  </div>
+
+  <h2>Materials:</h2>
+  <ul>
+    <% for (const material of course.materials) { %>
+    <% if (material.materialType === "other") { %>
+    <li>
+      <a href="<%= material.filePath %>">
+        <%= material.title %>
+      </a>
+    </li>
+    <% } %>
+    <% } %>
+  </ul>
+  <a href="/student/dashboard">Go back to Dashboard</a>
+
+  <script>
+    function playLecture(videoUrl) {
+      const videoPlayer = document.getElementById('lectureVideo');
+      videoPlayer.src = videoUrl;
+      console.log(videoUrl);
+      videoPlayer.load();
+      videoPlayer.play();
+    }
+  </script>
+</body>
+
+</html>

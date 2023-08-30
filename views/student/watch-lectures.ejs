@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Watch Lectures</title>
+</head>
+
+<body>
+  <div class="container">
+    <h1>Watch Lectures for <%= course.title %></h1>
+
+    <!-- Video Player -->
+    <div id="videoPlayer">
+      <video id="lectureVideo" controls>
+        <source src="" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+    </div>
+
+    <h2>Lectures:</h2>
+    <ul>
+      <% materials.forEach(material => { %>
+      <% if (material.materialType === 'lecture') { %>
+      <li>
+        <a href="#" onclick="playLecture('<%= material.cloudinaryUrl%>')"><%= material.title %></a>
+      </li>
+      <% } %>
+      <% }); %>
+    </ul>
+
+    <h2>Questions:</h2>
+    <form action="/student/submit-answers/<%= course._id %>" method="post">
+      <% questions.forEach(question => { %>
+      <div class="question">
+        <p><%= question.question %></p>
+        <ul>
+          <li><input type="radio" name="question<%= question._id %>" value="a"> <%= question.options.a %></li>
+          <li><input type="radio" name="question<%= question._id %>" value="b"> <%= question.options.b %></li>
+          <li><input type="radio" name="question<%= question._id %>" value="c"> <%= question.options.c %></li>
+          <li><input type="radio" name="question<%= question._id %>" value="d"> <%= question.options.d %></li>
+        </ul>
+      </div>
+      <% }); %>
+      <button type="submit" class="btn btn-primary">Submit Answers</button>
+    </form>
+  </div>
+
+  <script>
+    function playLecture(videoPath) {
+      const videoPlayer = document.getElementById('lectureVideo');
+      videoPlayer.src = videoPath;
+      videoPlayer.load();
+      videoPlayer.play();
+    }
+  </script>
+
+</body>
+
+</html>
